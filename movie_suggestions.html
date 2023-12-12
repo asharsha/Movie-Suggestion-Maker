@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Suggestions</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #baf2ff;
+            text-align: center;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            max-width: 600px; /* Set maximum width for the container */
+            margin: 20px auto; /* Center the container with increased margin */
+        }
+
+        h1 {
+            color: #3498db; /* Blue color */
+            font-weight: bold;
+            font-size: 24px; /* Larger font size for the title */
+        }
+
+        form {
+            margin-bottom: 30px; /* Increased margin between form and title */
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 18px; /* Larger font size */
+            font-family: 'Verdana', sans-serif; /* Different font */
+        }
+
+        input {
+            padding: 8px;
+            margin: 5px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4caf50; /* Green color */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            margin-top: 30px;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            overflow: hidden; /* Clear floats inside the container */
+        }
+
+        li {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        li.top-ten {
+            background-color: #45a049; /* Green color */
+            color: white;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Suggestion Maker</h1>
+    </div>
+
+    <form action="/" method="post">
+        <label for="genre">Enter a genre:</label>
+        <input type="text" id="genre" name="genre" required>
+        <button type="submit">Get Suggestions</button>
+    </form>
+
+    {% if user_genre %}
+        <h2>Top Ten Movie Suggestions for {{ user_genre }}</h2>
+        <ul>
+            {% for movie in top_ten %}
+                <li class="top-ten">
+                    <strong style="font-size: 18px;">{{ movie.title }}</strong> - 
+                    <strong>Popularity: {{ movie.popularity }}</strong><br>
+                    <strong>Overview:</strong> {{ movie.overview }}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <h2>Remaining Movie Suggestions</h2>
+        <ul>
+            {% for movie in remaining %}
+                <li>
+                    <strong style="font-size: 18px;">{{ movie.title }}</strong> - 
+                    <strong>Popularity: {{ movie.popularity }}</strong><br>
+                    <strong>Overview:</strong> {{ movie.overview }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
